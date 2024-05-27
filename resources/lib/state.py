@@ -197,8 +197,8 @@ class UpNextState(object):  # pylint: disable=too-many-public-methods
             self.popup_time, self.total_time, self.popup_cue
         ), utils.LOGINFO)
 
-    def set_popup_time(self, total_time):
-        popup_time = 0
+    def set_popup_time(self, total_time, **kwargs):
+        popup_time = kwargs.get('popup_time', 0)
 
         # Use 1s offset from total_time to try and avoid race condition with
         # internal Kodi playlist handling
