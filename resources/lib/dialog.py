@@ -77,6 +77,7 @@ class UpNextPopup(xbmcgui.WindowXMLDialog, object):
         if action == xbmcgui.ACTION_STOP:
             self.set_cancel(True)
             self.set_stop(True)
+            from xbmc import executebuiltin; executebuiltin("PlayerControl(Stop)")
             self.close()
         elif action == xbmcgui.ACTION_NAV_BACK:
             self.set_cancel(True)
@@ -92,6 +93,7 @@ class UpNextPopup(xbmcgui.WindowXMLDialog, object):
             self.set_cancel(True)
             if self.stop_enable:
                 self.set_stop(True)
+                from xbmc import executebuiltin; executebuiltin("PlayerControl(Stop)")
             self.close()
         # Shuffle play
         elif controlId == constants.SHUFFLE_CTRL_ID:
