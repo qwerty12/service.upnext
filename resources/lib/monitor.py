@@ -2,7 +2,7 @@
 # GNU General Public License v2.0 (see COPYING or https://www.gnu.org/licenses/gpl-2.0.txt)
 
 from __future__ import absolute_import, division, unicode_literals
-from jellyfin_intro_skipper_hack import JellyfinHack; jf_hack = JellyfinHack()
+from jellyfin_intro_skipper_hack import JellyfinHack
 
 from time import time
 
@@ -143,7 +143,7 @@ class UpNextMonitor(xbmc.Monitor, object):
             self.state.reset_queue(on_start=True)
 
             # Store popup time and check if cue point was provided
-            self.state.set_popup_time(play_info['duration'], popup_time=jf_hack.get_credits_time())
+            self.state.set_popup_time(play_info['duration'], popup_time=JellyfinHack.get_credits_time(play_info['item']['id'], play_info['item']['type']))
 
             # Handle sim mode functionality and notification
             skip_tracking = simulation.handle_sim_mode(
@@ -212,7 +212,6 @@ class UpNextMonitor(xbmc.Monitor, object):
         self.state.reset_queue(on_start=True)
 
     def _event_handler_player_stop(self, **_kwargs):
-        jf_hack.jellyfin_itemid = None
         # Delay event handler execution to allow events to queue up
         self.waitForAbort(SETTINGS.event_delay)
         # Only process this event if it is the last in the queue
@@ -581,7 +580,6 @@ class UpNextMonitor(xbmc.Monitor, object):
         self._started = False
 
     EVENTS_MAP = {
-        'Other.UserDataChanged': jf_hack.event_handler_jellyfin_userdatachanged,
         'Other.upnext_credits_detected': _event_handler_upnext_trigger,
         'Other.upnext_data': _event_handler_upnext_signal,
         'Other.upnext_trigger': _event_handler_upnext_trigger,
