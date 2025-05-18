@@ -123,6 +123,13 @@ try:
         if items and len(items) > 1:
             if items[1].is_unaired:
                 return None
+            if SETTINGS.unwatched_only:
+                items = [
+                    item for idx, item in enumerate(items)
+                    if not idx or item.infolabels.get(
+                        'playcount', constants.UNDEFINED
+                    ) < 1
+                ]
             return items
         return None
 
