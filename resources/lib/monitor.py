@@ -143,7 +143,7 @@ class UpNextMonitor(xbmc.Monitor, object):
             self.state.reset_queue(on_start=True)
 
             # Store popup time and check if cue point was provided
-            self.state.set_popup_time(play_info['duration'], popup_time=JellyfinHack.get_credits_time(play_info['item']['id'], play_info['item']['type']))
+            self.state.set_popup_time(play_info['duration'], popup_time=JellyfinHack.get_credits_start_seconds(play_info['item']['id'], play_info['item']['type']))
 
             # Handle sim mode functionality and notification
             skip_tracking = simulation.handle_sim_mode(
